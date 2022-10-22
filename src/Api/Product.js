@@ -4,7 +4,7 @@ import { mock, mockRequest } from '../mocks';
 
 
 mock.onGet("/products").reply(200, {
-    users: Data,
+    bags: Data,
   });
 
   export const productApi = mockRequest('/products');
