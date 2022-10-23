@@ -1,6 +1,8 @@
+import cartSlice from "./cartSlice";
 import productSlice from "./productSlice";
 
 
 export const reducers = {
-    product: productSlice
+    product: productSlice,
+    cart: cartSlice
 }

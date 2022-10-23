@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { productApi } from '../Api/Product'
+import { addToCart } from '../store/slices/cartSlice'
 import { Button, Details, HomeContainer, Price, Product, Products, Title } from '../styleComponents/Home.styled'
 
  function Home(props) {
     const [data, setData] = useState([])
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
    useEffect(() => {
     getData()
    }, [])
@@ -12,6 +17,10 @@ import { Button, Details, HomeContainer, Price, Product, Products, Title } from 
             setData(res.data.bags)
             console.log(res)
         })
+    }
+    const handleAddToCart = (product)=>{
+dispatch(addToCart(product))
+navigate('/cart')
     }
 
     return (
@@ -28,7 +37,7 @@ import { Button, Details, HomeContainer, Price, Product, Products, Title } from 
                     <Price>{product.price}$</Price>
 
                 </Details>
-                <Button>Add to cart</Button>
+                <Button onClick={()=>handleAddToCart(product)}>Add to cart</Button>
 
             </Product>
            
