@@ -1,16 +1,19 @@
-import React from 'react'
+import {useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Bottom, Button, Details, HR, Image, Info, PriceDetails, Product, ProductAmmountConatiner, ProductAmount, ProductDetail, ProductPrice, Summary, SummaryItem, SummaryTitle, Title, Top, TopButton, TopText, Wrapper } from '../styleComponents/CartPage.styled'
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { DeleteOutlineOutlined } from '@mui/icons-material';
-import { removeFromCart } from '../store/slices/cartSlice';
+import { addToCart, decreaseQuantity, getTotal, removeFromCart } from '../store/slices/cartSlice';
  function Cart(props) {
   const dispatch = useDispatch()
    const cart = useSelector(state=>state.cart) 
    const navigate = useNavigate()
    console.log(cart)
+   useEffect(() => {
+    dispatch(getTotal())
+   }, [cart, dispatch])
 
     return (
       <>
@@ -54,9 +57,9 @@ import { removeFromCart } from '../store/slices/cartSlice';
                   <ProductAmmountConatiner>
               
                   <div>
-                    <RemoveIcon />
+                    <RemoveIcon onClick={()=>dispatch(decreaseQuantity(product))}/>
                     <span>{product.cartQuantity}</span>
-                  <AddIcon/>
+                  <AddIcon onClick={()=>dispatch(addToCart(product))}/>
                   </div>
                     
 
